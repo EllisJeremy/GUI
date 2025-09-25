@@ -1,0 +1,303 @@
+/* Base body */
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  margin: 20px auto;
+  background-color: #121212; /* dark background */
+  color: #e0e0e0;
+  max-width: 1200px;
+}
+
+/* Floating banner (top right) */
+#banner {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: #3a86ff;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  z-index: 9999;
+}
+
+/* === Desktop: vertical sidebar header === */
+header {
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column; /* stack logo + nav vertically */
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 220px; /* sidebar width */
+  height: 100vh; /* full screen height */
+  position: fixed; /* stick to the left side */
+  top: 0;
+  left: 0;
+}
+
+@media (max-width: 1300px) and (min-width: 901px) {
+  header {
+    width: 180px;
+  }
+  main {
+    margin-left: 200px;
+    margin-right: 20px;
+  }
+}
+
+header .logo {
+  height: 80px;
+  margin-bottom: 40px;
+}
+
+.navigation-bar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column; /* vertical nav links */
+  gap: 20px;
+}
+
+.menu-bar-item {
+  font-size: 1.2em;
+  padding: 8px;
+  border-radius: 5px;
+  color: #f4f4f4;
+  text-decoration: none;
+  transition: 0.3s;
+  display: block;
+}
+
+.menu-bar-item:hover {
+  background-color: #3a86ff;
+}
+
+.menu-bar-item:active {
+  transform: scale(0.95);
+}
+
+/* Push the main content to the right of sidebar */
+main {
+  margin-left: 240px;
+}
+
+@media (max-width: 900px) {
+  header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center; /* center header content */
+    gap: 30px; /* space between logo and nav */
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 0;
+    padding: 15px 20px;
+    z-index: 1000;
+  }
+
+  header .logo {
+    margin: 0;
+    height: 60px;
+  }
+
+  .navigation-bar ul {
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  main {
+    margin-left: 0;
+    padding-top: 100px;
+  }
+}
+
+/* Hero section */
+.header-container {
+  position: relative;
+}
+
+.primelab-framework {
+  width: 100%;
+  border-radius: 10px;
+  filter: brightness(0.7);
+}
+
+.header-title-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* shifts back by half its size */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center; /* keeps multi-line text centered */
+  width: 80%; /* optional: prevent super long text overflow */
+}
+
+.header-title {
+  font-size: 80px;
+  font-weight: bold;
+  color: white;
+  line-height: 1;
+}
+
+/* Sections */
+section {
+  position: relative;
+  background: #1e1e1e;
+  border-radius: 10px;
+  padding: 50px;
+  margin: 10px 0;
+  line-height: 1.8;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+/* Floating section banners */
+.container-banner {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20%;
+  min-width: 200px;
+  background-color: #3a86ff;
+  color: white;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.container-banner a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Images */
+.fast-facts-image {
+  border-radius: 10px;
+  width: 100%;
+}
+
+.image-on-the-left,
+.image-on-the-right {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.image-on-the-left img {
+  width: 50%;
+  margin-right: 20px;
+}
+
+.image-on-the-left p {
+  width: 50%;
+}
+
+.image-on-the-right img {
+  width: 50%;
+  margin-left: 20px;
+}
+
+.image-on-the-right p {
+  width: 50%;
+}
+
+/* Stack side images vertically on mobile */
+@media (max-width: 900px) {
+  .image-on-the-left,
+  .image-on-the-right {
+    flex-direction: column;
+  }
+
+  .image-on-the-left img,
+  .image-on-the-right img,
+  .image-on-the-left p,
+  .image-on-the-right p {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+/* Mars Rovers section */
+.role {
+  font-size: 20px;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 20px;
+  color: white;
+}
+
+.role-members {
+  list-style: none; /* remove bullets */
+  padding: 0; /* remove browser default padding */
+  margin: 0; /* remove browser default margin */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+.member {
+  flex: 1 1 200px; /* flexible, min 200px */
+  max-width: 240px; /* cap size */
+  margin: 5px;
+  text-align: center;
+  color: #e0e0e0;
+}
+
+.profile-picture {
+  width: 100%;
+  border-radius: 5px;
+}
+
+/* Projects section */
+#project-articles {
+  display: grid;
+  grid-template-columns: 32% 32% 32%;
+  gap: 2%;
+  margin: 20px;
+}
+
+.project-container {
+  border: 4px solid rgb(60, 60, 60);
+  border-radius: 10px;
+  padding: 10px;
+  background: #2a2a2a;
+}
+
+.project-title {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px;
+  color: white;
+}
+
+.project-image {
+  width: 80%;
+  margin: 0 10%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Footer */
+.footer {
+  background-color: #3a86ff;
+  color: white;
+  text-align: right;
+  padding: 20px;
+  border-radius: 5px;
+}

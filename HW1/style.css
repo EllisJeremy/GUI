@@ -1,0 +1,210 @@
+/* 
+the html file given does not import Open Sans, and the example video looks like its using times new roman, implying that your html file also didn't have the import 
+I will add sans serif here as a fallback because Open sans is not being imported
+*/
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  margin: 20px auto;
+  background-color: rgb(236, 239, 241);
+  min-width: 800px;
+  max-width: 1200px;
+}
+
+/* realistically, I would use a classname here, but I can't edit the HTML file. */
+#banner {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: #e5751f;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  color: black;
+}
+
+header {
+  background-color: white;
+  border-radius: 10px;
+  margin: 20px 0;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header .logo {
+  height: 100px;
+}
+
+.navigation-bar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 15px;
+}
+
+.menu-bar-item {
+  font-size: 1.4em;
+  padding: 10px;
+  border-radius: 5px;
+  color: black;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.menu-bar-item:hover {
+  background-color: #861f41;
+  color: #e5751f;
+}
+
+.header-container {
+  position: relative;
+}
+
+.primelab-framework {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.header-title-container {
+  position: absolute;
+  top: 150px;
+  left: 40px;
+  width: 600px;
+}
+
+.header-title {
+  font-size: 100px;
+  font-weight: bold;
+  color: white;
+  line-height: 1;
+}
+
+section {
+  position: relative;
+  background: white;
+  border-radius: 10px;
+  padding: 50px;
+  margin: 10px 0;
+  line-height: 1.8;
+}
+
+/* the spec says that section titles are to be bold, but in the example video they are not bold */
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.container-banner {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20%;
+  min-width: 200px;
+  background-color: #861f41;
+  color: white;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.container-banner a {
+  color: white;
+  text-decoration: none;
+}
+
+.fast-facts-image {
+  border-radius: 10px;
+  width: 100%;
+}
+
+.image-on-the-left,
+.image-on-the-right {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.image-on-the-left img {
+  width: 50%;
+  margin-right: 20px;
+}
+
+.image-on-the-left p {
+  width: 50%;
+}
+
+.image-on-the-right img {
+  width: 50%;
+  margin-left: 20px;
+}
+
+.image-on-the-right p {
+  width: 50%;
+}
+
+.role {
+  font-size: 20px;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.role-members {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.member {
+  flex: 1 1 33%;
+  max-width: 240px;
+  margin: 5px;
+  text-align: center;
+}
+
+.profile-picture {
+  width: 100%;
+  border-radius: 5px;
+}
+
+#project-articles {
+  display: grid;
+  grid-template-columns: 32% 32% 32%;
+  gap: 2%;
+  margin: 20px;
+}
+
+.project-container {
+  border: 4px solid rgb(226, 226, 226);
+  border-radius: 10px;
+  padding: 10px;
+  background: white;
+}
+
+.project-title {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px;
+}
+
+.project-image {
+  width: 80%;
+  margin: 0 10%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.footer {
+  background-color: #861f41;
+  color: white;
+  text-align: right;
+  padding: 20px;
+  border-radius: 5px;
+}
