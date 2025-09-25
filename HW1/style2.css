@@ -1,6 +1,6 @@
 /* 
 This style is much more dynamic than the first one. It scales well for mobile, medium size screens, and desktop.
-the header, margins, and other content all change using media queries. 
+the header, margins, and other content all change using media queries or clamp(). 
 This one is also a dark mode which better matches the space theme.
 */
 html {
