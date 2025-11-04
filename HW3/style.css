@@ -1,0 +1,419 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+    box-sizing: border-box;
+    background: url('kpop.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+}
+
+.overlay {
+    min-height: 100vh;
+    min-width: 100vw;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.audition-form-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px 30px 32px 30px;
+    max-width: 375px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+}
+
+.audition-form-container h1 {
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #333;
+}
+
+.audition-form-container p {
+    font-size: 1.01rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+form label {
+    display: block;
+    margin-top: 18px;
+    margin-bottom: 4px;
+    font-weight: 600;
+    color: #333;
+    letter-spacing: 0.04rem;
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 1.02rem;
+    background: #fff;
+    transition: border 0.2s;
+    margin-bottom: 8px;
+    box-sizing: border-box;
+}
+
+form input:focus,
+form select:focus {
+    outline: none;
+    border-color: #007bff;
+    background: #fff;
+}
+
+.audition-form-container button {
+    margin-top: 16px;
+    padding: 10px 34px;
+    background: #007bff;
+    color: #fff;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+    transition: background 0.2s, transform 0.11s;
+}
+
+.audition-form-container button:hover {
+    background: #0056b3;
+    transform: scale(1.02);
+}
+
+.success-message {
+    margin-top: 16px;
+    color: #24a371;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-align: center;
+    background: #e6fbf5b7;
+    border-radius: 8px;
+    padding: 7px 6px;
+    border: 1px solid #72dfb9;
+}
+
+/* Role Toggle Styles */
+.role-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 5px;
+}
+
+.role-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.role-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.role-btn.active {
+    background: #007bff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Manager View Styles */
+.manager-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 1000px;
+    width: 90%;
+    margin: 50px auto;
+    min-height: 80vh;
+}
+
+.manager-container h1 {
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #333;
+}
+
+.manager-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    justify-content: center;
+    min-height: 40px;
+    /* Maintain consistent spacing */
+}
+
+.add-btn,
+.refresh-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-btn {
+    background: #007bff;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.add-btn:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+}
+
+.refresh-btn {
+    background: #f8f9fa;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.refresh-btn:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+}
+
+/* Table Styles */
+.applicants-table-container {
+    overflow-x: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.applicants-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.applicants-table th {
+    background: #007bff;
+    color: white;
+    padding: 15px 12px;
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.applicants-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: middle;
+}
+
+.applicants-table tr:hover {
+    background: #f8f9fa;
+}
+
+.applicants-table tr:nth-child(even) {
+    background: #fafafa;
+}
+
+.applicants-table tr:nth-child(even):hover {
+    background: #f8f9fa;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-btn,
+.delete-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.edit-btn {
+    background: #4CAF50;
+    color: white;
+}
+
+.edit-btn:hover {
+    background: #45a049;
+    transform: scale(1.05);
+}
+
+.delete-btn {
+    background: #f44336;
+    color: white;
+}
+
+.delete-btn:hover {
+    background: #da190b;
+    transform: scale(1.05);
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: white;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 18px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 8px 35px 6px rgba(60, 0, 90, 0.16);
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+}
+
+.close:hover {
+    color: #37006b;
+}
+
+.modal-content h2 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal-content label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #333;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    background: #fff;
+    transition: border 0.2s;
+    box-sizing: border-box;
+}
+
+.modal-content input:focus {
+    outline: none;
+    border-color: #007bff;
+    background: #fff;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    justify-content: center;
+}
+
+.modal-buttons button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#modal-save {
+    background: #007bff;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+#modal-save:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+}
+
+#modal-cancel {
+    background: #f8f9fa;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+#modal-cancel:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+}
+
+/* New Application Notification */
+.new-app-notification {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    font-weight: 600;
+    z-index: 3000;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
