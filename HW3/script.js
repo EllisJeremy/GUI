@@ -56,12 +56,25 @@ $(document).ready(function () {
       url: "/api/applicants",
       success: function (data) {
         displayApplicants(data);
+        lastApplicantCount = data.length; // used for the auto update feature below
       },
       error: function () {
         displayApplicants([]);
       },
     });
   }
+
+  // checks every 3 seconds if there is new data to display
+  setInterval(() => {
+    if ($("#manager-view").is(":visible")) {
+      $.get("/api/applicants", (data) => {
+        if (data.length !== lastApplicantCount) {
+          lastApplicantCount = data.length;
+          displayApplicants(data);
+        }
+      });
+    }
+  }, 3000);
 
   function displayApplicants(applicants) {
     const tbody = $("#applicants-tbody");
