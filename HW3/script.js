@@ -1,6 +1,8 @@
 $(document).ready(function () {
   // Role management
   let currentRole = "application";
+  let allApplicants = [];
+  let lastApplicantCount = 0;
 
   // Role toggle functionality
   $("#application-role").on("click", function () {
@@ -55,6 +57,7 @@ $(document).ready(function () {
       method: "GET",
       url: "/api/applicants",
       success: function (data) {
+        allApplicants = data;
         displayApplicants(data);
         lastApplicantCount = data.length; // used for the auto update feature below
       },
@@ -70,6 +73,7 @@ $(document).ready(function () {
       $.get("/api/applicants", (data) => {
         if (data.length !== lastApplicantCount) {
           lastApplicantCount = data.length;
+          allApplicants = data;
           displayApplicants(data);
         }
       });
@@ -205,6 +209,17 @@ $(document).ready(function () {
     if (e.target === modal[0]) {
       modal.hide();
     }
+  });
+
+  // search functionality
+  $("#search-input").on("input", function () {
+    const query = $(this).val().toLowerCase();
+    const filtered = allApplicants.filter(
+      (a) =>
+        a.name.toLowerCase().includes(query) ||
+        a.song.toLowerCase().includes(query)
+    );
+    displayApplicants(filtered);
   });
 
   // Initialize with application view

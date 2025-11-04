@@ -1,98 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KPOP Demon Hunter Audition</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- Role Toggle -->
     <div class="role-toggle">
-        <button id="application-role" class="role-btn active">Application</button>
-        <button id="manager-role" class="role-btn">Manager</button>
+      <button id="application-role" class="role-btn active">Application</button>
+      <button id="manager-role" class="role-btn">Manager</button>
     </div>
 
     <!-- Application View -->
     <div id="application-view" class="view">
-        <div class="overlay">
-            <div class="audition-form-container">
-                <h1>KPOP Demon Hunter Audition</h1>
-                <p>Singing Competition Signup</p>
-                <form id="audition-form" autocomplete="off">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required placeholder="Stage or Real Name">
+      <div class="overlay">
+        <div class="audition-form-container">
+          <h1>KPOP Demon Hunter Audition</h1>
+          <p>Singing Competition Signup</p>
+          <form id="audition-form" autocomplete="off">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              placeholder="Stage or Real Name"
+            />
 
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="you@kpop.com">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="you@kpop.com"
+            />
 
-                    <label for="song">Prepared Song</label>
-                    <input type="text" id="song" name="song" required placeholder="Song title & artist">
+            <label for="song">Prepared Song</label>
+            <input
+              type="text"
+              id="song"
+              name="song"
+              required
+              placeholder="Song title & artist"
+            />
 
-                    <button type="submit">Sign Up</button>
-                    <div id="form-success" class="success-message" style="display:none;">
-                        Thanks! Your audition sign-up was received 🎤✨
-                    </div>
-                </form>
+            <button type="submit">Sign Up</button>
+            <div
+              id="form-success"
+              class="success-message"
+              style="display: none"
+            >
+              Thanks! Your audition sign-up was received 🎤✨
             </div>
+          </form>
         </div>
+      </div>
     </div>
 
     <!-- Manager View -->
-    <div id="manager-view" class="view" style="display:none;">
-        <div class="manager-container">
-            <h1>Manager Dashboard</h1>
-            <div class="manager-controls">
-                <!-- Auto-refresh is enabled - no manual refresh needed -->
-            </div>
+    <div id="manager-view" class="view" style="display: none">
+      <div class="manager-container">
+        <h1>Manager Dashboard</h1>
 
-            <div class="applicants-table-container">
-                <table id="applicants-table" class="applicants-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Song</th>
-                            <th>Submitted</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="applicants-tbody">
-                        <!-- Applicants will be loaded here -->
-                    </tbody>
-                </table>
-            </div>
+        <div class="manager-controls">
+          <!-- Auto-refresh is enabled - no manual refresh needed -->
         </div>
+        <div class="manager-controls">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search by name or song..."
+          />
+        </div>
+
+        <div class="applicants-table-container">
+          <table id="applicants-table" class="applicants-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Song</th>
+                <th>Submitted</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="applicants-tbody">
+              <!-- Applicants will be loaded here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
     <!-- Add/Edit Modal -->
-    <div id="applicant-modal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 id="modal-title">Add New Applicant</h2>
-            <form id="modal-form">
-                <input type="hidden" id="modal-id">
-                <label for="modal-name">Name</label>
-                <input type="text" id="modal-name" required>
+    <div id="applicant-modal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modal-title">Add New Applicant</h2>
+        <form id="modal-form">
+          <input type="hidden" id="modal-id" />
+          <label for="modal-name">Name</label>
+          <input type="text" id="modal-name" required />
 
-                <label for="modal-email">Email</label>
-                <input type="email" id="modal-email" required>
+          <label for="modal-email">Email</label>
+          <input type="email" id="modal-email" required />
 
-                <label for="modal-song">Song</label>
-                <input type="text" id="modal-song" required>
+          <label for="modal-song">Song</label>
+          <input type="text" id="modal-song" required />
 
-                <div class="modal-buttons">
-                    <button type="submit" id="modal-save">Save</button>
-                    <button type="button" id="modal-cancel">Cancel</button>
-                </div>
-            </form>
-        </div>
+          <div class="modal-buttons">
+            <button type="submit" id="modal-save">Save</button>
+            <button type="button" id="modal-cancel">Cancel</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>
