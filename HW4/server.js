@@ -7,12 +7,10 @@ import "dotenv/config";
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
-// Initialize Gemini AI
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
-// Load personas
 let personas = null;
 try {
   const personasPath = path.join(__dirname, "personas.json");
@@ -22,7 +20,6 @@ try {
   console.error("Error loading personas:", error);
 }
 
-// MIME types
 const mimeTypes = {
   ".html": "text/html",
   ".js": "text/javascript",
@@ -35,13 +32,11 @@ const mimeTypes = {
   ".svg": "image/svg+xml",
 };
 
-// Create server
 const server = http.createServer(async (req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const pathname = parsedUrl.pathname;
   const method = req.method;
 
-  // CORS headers
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -52,14 +47,12 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Serve personas.json
   if (pathname === "/personas.json") {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(personas));
     return;
   }
 
-  // Chat endpoint
   if (pathname === "/chat" && method === "POST") {
     let body = "";
     req.on("data", (chunk) => {
@@ -76,7 +69,6 @@ const server = http.createServer(async (req, res) => {
           return;
         }
 
-        // Create conversation context with agent persona and chat history
         let conversationContext = `${agent.persona}\n\n`;
         conversationContext += "Conversation history:\n";
 
@@ -89,7 +81,6 @@ const server = http.createServer(async (req, res) => {
 
         conversationContext += `User: ${message}\n${agent.name}:`;
 
-        // Get response from Gemini
         const response = await ai.models.generateContent({
           model: "gemini-2.0-flash-lite",
           contents: conversationContext,
@@ -109,7 +100,6 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // AI Helper endpoint
   if (pathname === "/ai-helper" && method === "POST") {
     let body = "";
     req.on("data", (chunk) => {
@@ -126,10 +116,8 @@ const server = http.createServer(async (req, res) => {
           return;
         }
 
-        // Initialize context for helper
         let helperContext = `${helperAgent.persona}\n\n`;
 
-        // Add chat history context
         helperContext += "Current conversation:\n";
         if (history && history.length > 0) {
           history.forEach((turn) => {
@@ -139,18 +127,15 @@ const server = http.createServer(async (req, res) => {
         }
         helperContext += "\n";
 
-        // Use helper prompt from persona configuration
         const helperPrompt = helperAgent.helperPrompt || "";
         helperContext += helperPrompt.replace("{message}", message);
 
-        // Get suggestions from Gemini
         const response = await ai.models.generateContent({
           model: "gemini-2.0-flash-exp",
           contents: helperContext,
         });
 
         const suggestionsText = response.text || "";
-        // Split suggestions by newlines and filter empty lines, keep first 3
         const suggestions = suggestionsText
           .split("\n")
           .map((s) => s.trim())
@@ -168,12 +153,9 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Serve static files
   let filePath = pathname === "/" ? "/index.html" : pathname;
-  // Resolve path and normalize to prevent directory traversal
   filePath = path.resolve(__dirname, filePath.replace(/^\/+/, ""));
 
-  // Security: prevent directory traversal
   if (!filePath.startsWith(path.resolve(__dirname))) {
     res.writeHead(403);
     res.end("Forbidden");
@@ -199,6 +181,7 @@ const server = http.createServer(async (req, res) => {
   });
 });
 
+// test to ensure server is running
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}/`);
