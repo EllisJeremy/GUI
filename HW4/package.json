@@ -1,0 +1,18 @@
+{
+  "name": "hw4",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@google/genai": "^1.0.0",
+    "dotenv": "^17.2.3",
+    "genai": "^0.0.18"
+  }
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dating App Chat</title>
+        <script src="./script.js" defer></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <h1>Dating App Chat</h1>
+
+        <!-- Agent Selection Radio Buttons -->
+        <div class="agent-selection">
+            <label>
+                <input type="radio" name="agent" value="male" checked>
+                <span>Male Agent (Theodore)</span>
+            </label>
+            <label>
+                <input type="radio" name="agent" value="female">
+                <span>Female Agent (Scarlett)</span>
+            </label>
+        </div>
+
+        <!-- Single Chat Container -->
+        <div class="chat-wrapper">
+            <div id="chatContainer" class="chat-container">
+                <div class="chatHeader">
+                    <div class="contactInfo">
+                        <div class="contactAvatar" id="agentAvatar">
+                            <img id="agentAvatarImg" src="joaquin.jpeg" alt="Agent Avatar">
+                        </div>
+                        <div class="contactDetails">
+                            <div class="contactName" id="agentName">Theodore</div>
+                            <div class="contactStatus">Online</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chatBox">
+                    <div class="messageContainer" id="messageContainer">
+                        <!-- messages go here -->
+                    </div>
+                </div>
+                <div class="chatControls">
+                    <textarea id="chatInput" placeholder="Type your message..." rows="3"></textarea>
+                    <button id="sendBtn">Send</button>
+                    <button id="aiHelperBtn" title="AI Helper">AI Help</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Helper Suggestions Modal -->
+        <div id="aiHelperModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>AI Helper Suggestions</h3>
+                <div id="suggestionsContainer"></div>
+            </div>
+        </div>
+
+    </body>
+
+</html>
