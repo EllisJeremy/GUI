@@ -20,8 +20,12 @@ let conversationHistory = [];
 // Load personas from server
 async function loadPersonas() {
   try {
-    // TODO: Fetch personas from the backend by accessing the static personas.json
-    // Then update `personas` with the fetched data.
+    const response = await fetch("/personas.json");
+    if (!response.ok) {
+      throw new Error("Failed to fetch personas");
+    }
+    const data = await response.json();
+    personas = data.agents;
     updateAgentDisplay();
   } catch (error) {
     console.error("Error loading personas:", error);
@@ -77,9 +81,32 @@ async function sendMessage() {
 
   // Get response from agent
   try {
-    // TODO: Send message using the chat API. When receive data, use `addMessage()` to populate the response text in the chat UI
+    const response = await fetch("/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        agentId: currentAgent,
+        message: message,
+        history: conversationHistory.slice(0, -1), // Exclude the message just added
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to get response");
+    }
+
+    const data = await response.json();
+
+    if (data.error) {
+      addMessage("Sorry, I encountered an error. Please try again.", "agent");
+    } else {
+      addMessage(data.response, "agent");
+    }
   } catch (error) {
-    // TODO: Error handling
+    console.error("Error sending message:", error);
+    addMessage("Sorry, I encountered an error. Please try again.", "agent");
   }
 }
 
@@ -104,16 +131,41 @@ chatInput.addEventListener("keydown", (e) => {
 
 // AI Helper functionality
 aiHelperBtn.addEventListener("click", async () => {
-  // TODO: First, trim the input text.
-  // If input text is empty, alert the user.
+  const message = chatInput.value.trim();
+
+  if (!message) {
+    alert("Please type a message first to get suggestions.");
+    return;
+  }
 
   try {
-    // TODO: Call the /ai-helper API in the backend
-    // When receive response, display the suggestions using `displaySuggestions()`
-    // If no data, alert 'No suggestions available.'
-    // Hint: To make sure the AI Helper Modal becomes visible, use `aiHelperModal.style.display = 'block'`
+    const response = await fetch("/ai-helper", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message: message,
+        history: conversationHistory,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to get suggestions");
+    }
+
+    const data = await response.json();
+
+    if (!data.suggestions || data.suggestions.length === 0) {
+      alert("No suggestions available.");
+      return;
+    }
+
+    displaySuggestions(data.suggestions);
+    aiHelperModal.style.display = "block";
   } catch (error) {
-    // If response error, alert 'Error getting suggestions. Please try again.' and log the error in console.
+    console.error("Error getting suggestions:", error);
+    alert("Error getting suggestions. Please try again.");
   }
 });
 

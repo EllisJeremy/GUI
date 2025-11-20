@@ -9,17 +9,17 @@ const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 // Initialize Gemini AI
 const ai = new GoogleGenAI({
-  // TODO: Put your API key here.
-  // Refer to Slide CS 3744 10-1.pdf to see how to obtain Google Gemini API Key.
   apiKey: process.env.GEMINI_API_KEY,
 });
 
 // Load personas
 let personas = null;
 try {
-  // TODO: Read the JSON file and store the data in `personas`
+  const personasPath = path.join(__dirname, "personas.json");
+  const personasData = fs.readFileSync(personasPath, "utf8");
+  personas = JSON.parse(personasData);
 } catch (error) {
-  // TODO: Log `error` using `console.error(...)`
+  console.error("Error loading personas:", error);
 }
 
 // MIME types
@@ -30,6 +30,7 @@ const mimeTypes = {
   ".json": "application/json",
   ".png": "image/png",
   ".jpg": "image/jpg",
+  ".jpeg": "image/jpeg",
   ".gif": "image/gif",
   ".svg": "image/svg+xml",
 };
@@ -53,7 +54,9 @@ const server = http.createServer(async (req, res) => {
 
   // Serve personas.json
   if (pathname === "/personas.json") {
-    // TODO: Return personas.json as JSON
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(personas));
+    return;
   }
 
   // Chat endpoint
@@ -73,22 +76,34 @@ const server = http.createServer(async (req, res) => {
           return;
         }
 
-        // TODO: Create a string variable `conversationContext` to store context of agent persona and chat history
+        // Create conversation context with agent persona and chat history
+        let conversationContext = `${agent.persona}\n\n`;
+        conversationContext += "Conversation history:\n";
+
+        if (history && history.length > 0) {
+          history.forEach((turn) => {
+            const role = turn.sender === "user" ? "User" : agent.name;
+            conversationContext += `${role}: ${turn.text}\n`;
+          });
+        }
+
+        conversationContext += `User: ${message}\n${agent.name}:`;
 
         // Get response from Gemini
         const response = await ai.models.generateContent({
-          // TODO: Specify Gemini model and refer to `conversationContext` as contents to prompt the LLM.
+          model: "gemini-2.0-flash-lite",
+          contents: conversationContext,
         });
 
         const agentResponse =
           response.text || "I'm not sure how to respond to that.";
 
-        // TODO: Respond as JSON following the structure `{ response: agentResponse }`
-        // Set HTTP response code as 200
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ response: agentResponse }));
       } catch (error) {
         console.error("Error in chat endpoint:", error);
-        // TODO: Respond as JSON following the structure `{ error: 'Internal server error' }`
-        // Set HTTP response code as 500
+        res.writeHead(500, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Internal server error" }));
       }
     });
     return;
@@ -112,9 +127,17 @@ const server = http.createServer(async (req, res) => {
         }
 
         // Initialize context for helper
-        let helperContext = null;
+        let helperContext = `${helperAgent.persona}\n\n`;
 
-        // TODO: Add context to `helperContext` with agent persona and chat history.
+        // Add chat history context
+        helperContext += "Current conversation:\n";
+        if (history && history.length > 0) {
+          history.forEach((turn) => {
+            const role = turn.sender === "user" ? "You" : "Match";
+            helperContext += `${role}: ${turn.text}\n`;
+          });
+        }
+        helperContext += "\n";
 
         // Use helper prompt from persona configuration
         const helperPrompt = helperAgent.helperPrompt || "";
@@ -122,20 +145,24 @@ const server = http.createServer(async (req, res) => {
 
         // Get suggestions from Gemini
         const response = await ai.models.generateContent({
-          // TODO: Set model and context contents to prompt the LLM.
+          model: "gemini-2.0-flash-exp",
+          contents: helperContext,
         });
 
         const suggestionsText = response.text || "";
-        // TODO: Split suggestions by newlines and filter empty lines
-        // Hint: Look at personas.json helperPrompt to see the response structure. Make sure to keep the first 3 suggestions.
-        const suggestions = [];
+        // Split suggestions by newlines and filter empty lines, keep first 3
+        const suggestions = suggestionsText
+          .split("\n")
+          .map((s) => s.trim())
+          .filter((s) => s.length > 0)
+          .slice(0, 3);
 
         res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ suggestions }));
       } catch (error) {
         console.error("Error in AI helper endpoint:", error);
-        // TODO: Return error in JSON structure `{ error: 'Internal server error' }`
-        // Use response header HTTP code 500
+        res.writeHead(500, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Internal server error" }));
       }
     });
     return;
@@ -166,7 +193,8 @@ const server = http.createServer(async (req, res) => {
         res.end("Server error");
       }
     } else {
-      // TODO: When no error, return file content with response code 200.
+      res.writeHead(200, { "Content-Type": contentType });
+      res.end(content);
     }
   });
 });
