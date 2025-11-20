@@ -1,4 +1,3 @@
-// Query all needed elements
 const chatInput = document.querySelector("#chatInput");
 const sendBtn = document.querySelector("#sendBtn");
 const aiHelperBtn = document.querySelector("#aiHelperBtn");

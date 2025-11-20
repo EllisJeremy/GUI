@@ -181,8 +181,7 @@ const server = http.createServer(async (req, res) => {
   });
 });
 
-// test to ensure server is running
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 server.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}/`);
 });
