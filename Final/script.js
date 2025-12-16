@@ -55,11 +55,17 @@ function displayItems(items) {
                     <h5 class="card-title">${item.name}</h5>
                     <p class="card-text">$${item.price.toFixed(2)}</p>
                     <div class="d-flex align-items-center mb-2">
-                        <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(1, -1)">-</button>
-                        <span class="mx-2" id="qty-1">1</span>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(1, 1)">+</button>
+                        <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${
+                          item.id
+                        }, -1)">-</button>
+                        <span class="mx-2" id="qty-${item.id}">1</span>
+                        <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${
+                          item.id
+                        }, 1)">+</button>
                     </div>
-                    <button class="btn btn-primary w-100" onclick="addToCart(1)">Add to Cart</button>
+                    <button class="btn btn-primary w-100" onclick="addToCart(${
+                      item.id
+                    })">Add to Cart</button>
                 </div>
             </div>
         `;

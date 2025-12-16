@@ -7,7 +7,14 @@
         "name": "Item One",
         "price": 29.99,
         "image": "items.jpg",
-        "quantity": 4
+        "quantity": 5
+      },
+      {
+        "id": 2,
+        "name": "Item Two",
+        "price": 49.99,
+        "image": "items.jpg",
+        "quantity": 3
       }
     ]
   }
