@@ -1,0 +1,42 @@
+[
+  {
+    "userId": 1,
+    "items": [
+      {
+        "id": 2,
+        "name": "Item 1",
+        "price": 49.99,
+        "image": "items.jpg",
+        "quantity": 9
+      },
+      {
+        "id": 4,
+        "name": "Item Four",
+        "price": 59.99,
+        "image": "items.jpg",
+        "quantity": 5
+      },
+      {
+        "id": 3,
+        "name": "Item Three",
+        "price": 39.99,
+        "image": "items.jpg",
+        "quantity": 7
+      },
+      {
+        "id": 7,
+        "name": "Item Seven",
+        "price": 89.99,
+        "image": "items.jpg",
+        "quantity": 3
+      },
+      {
+        "id": 1,
+        "name": "Item One",
+        "price": 29.99,
+        "image": "items.jpg",
+        "quantity": 24
+      }
+    ]
+  }
+]

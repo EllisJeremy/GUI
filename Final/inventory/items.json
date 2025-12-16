@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Item One",
+    "price": 29.99,
+    "image": "items.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Item Two",
+    "price": 49.99,
+    "image": "items.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Item Three",
+    "price": 39.99,
+    "image": "items.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Item Four",
+    "price": 59.99,
+    "image": "items.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Item Five",
+    "price": 69.99,
+    "image": "items.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Item Six",
+    "price": 79.99,
+    "image": "items.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Item Seven",
+    "price": 89.99,
+    "image": "items.jpg"
+  }
+]
