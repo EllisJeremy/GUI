@@ -4,6 +4,7 @@ let cart = [];
 const userId = 1;
 let currentPage = 1;
 const itemsPerPage = 4;
+const quantities = {};
 
 // Load items from JSON
 async function loadItems() {
@@ -18,13 +19,10 @@ async function loadItems() {
 }
 
 function changeQuantity(itemId, diff) {
-  const qtySpan = document.getElementById(`qty-${itemId}`);
-  let currentQty = parseInt(qtySpan.textContent, 10);
+  quantities[itemId] = (quantities[itemId] || 1) + diff;
+  if (quantities[itemId] < 1) quantities[itemId] = 1;
 
-  currentQty += diff;
-  if (currentQty < 1) currentQty = 1;
-
-  qtySpan.textContent = currentQty;
+  document.getElementById(`qty-${itemId}`).textContent = quantities[itemId];
 }
 
 // Display items in responsive grid with pagination
@@ -58,7 +56,9 @@ function displayItems(items) {
                         <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${
                           item.id
                         }, -1)">-</button>
-                        <span class="mx-2" id="qty-${item.id}">1</span>
+                        <span class="mx-2" id="qty-${item.id}">  ${
+      quantities[item.id] || 1
+    }</span>
                         <button class="btn btn-sm btn-outline-secondary" onclick="changeQuantity(${
                           item.id
                         }, 1)">+</button>
@@ -134,7 +134,7 @@ function addToCart(itemId) {
 
 // Update cart count badge
 function updateCartCount() {
-  const totalItems = cart.length;
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   document.getElementById("cartCount").innerHTML = totalItems;
 }
 
