@@ -32,7 +32,7 @@ function displayItems(items) {
   const inventoryDiv = document.getElementById("inventory");
   inventoryDiv.innerHTML = "";
 
-  const totalPages = Math.floor(items.length / itemsPerPage);
+  const totalPages = Math.ceil(items.length / itemsPerPage);
 
   if (currentPage > totalPages && totalPages > 1) {
     currentPage = 1;
