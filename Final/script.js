@@ -91,9 +91,9 @@ function handleSearch() {
 function applySort() {
   const sortValue = document.getElementById("sortSelect").value;
 
-  if (sortValue === "highest") {
+  if (sortValue === "low") {
     filteredItems.sort((a, b) => a.price - b.price);
-  } else if (sortValue === "lowest") {
+  } else if (sortValue === "high") {
     filteredItems.sort((a, b) => b.price - a.price);
   }
   currentPage = 1;
