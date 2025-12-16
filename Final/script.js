@@ -111,16 +111,21 @@ function addToCart(itemId) {
   const item = allItems.find((i) => i.id === itemId);
   if (!item) return;
 
+  const qtySpan = document.getElementById(`qty-${itemId}`);
+  const selectedQty = parseInt(qtySpan.textContent, 10);
+
   const existingItem = cart.find((i) => i.id === itemId);
 
   if (existingItem) {
-    existingItem.quantity += 1;
+    existingItem.quantity += selectedQty;
   } else {
     cart.push({
       ...item,
-      quantity: 1,
+      quantity: selectedQty,
     });
   }
+
+  qtySpan.textContent = "1";
 
   updateCartCount();
   updateCartModal();
