@@ -79,6 +79,7 @@ function displayItems(items) {
 
 // Search function - syntax match on name
 function handleSearch() {
+  currentPage = 1;
   const searchTerm = document.getElementById("searchBar").value.toUpperCase();
 
   if (searchTerm === "") {
